@@ -1,0 +1,60 @@
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: tomato;
+        }
+        
+        h2,h3 {
+            text-align:center;
+            color: #333;
+            background-color: #dac9a4;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 10px;
+            border: 2px solid #1b1717;
+        }
+        
+        th {
+            background-color: #92a8c5;
+        }
+    </style>
+</head>
+<body>
+<h2>View Attendance</h2>
+<form method="post">
+    {% csrf_token %}
+    <select name="student_id">
+        {% for student in students %}
+            <option value="{{ student.id }}">{{ student.name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Check Attendance</button>
+</form>
+
+{% if records %}
+<h3>Attendance Records for {{ student_name }}</h3>
+<table>
+    <tr>
+        <th>Date</th>
+        <th>ID</th>
+        <th>Status</th>
+    </tr>
+    {% for record in records %}
+        <tr>
+            <td>{{record.date }}</td>
+            <td>{{record.student_id}}</td>
+            <td>{{ record.status|yesno:"Present,Absent" }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+</body>
+</html>
