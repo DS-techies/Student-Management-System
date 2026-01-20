@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -74,12 +77,14 @@ WSGI_APPLICATION = 'student_data.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+load_dotenv()
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'your_database',
-        'USER': 'your_username',
-        'PASSWORD': 'your_pass',
+        'NAME': os.getenv('your_database'),
+        'USER': os.getenv('your_username'),
+        'PASSWORD': os.getenv('your_pass'),
         'HOST': 'localhost',
         'PORT': '5432'
     }
